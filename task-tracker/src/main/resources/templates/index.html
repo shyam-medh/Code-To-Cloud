@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Task Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen">
+    
+    <!-- Navbar -->
+    <nav class="bg-indigo-600 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-cloud text-2xl"></i>
+                    <span class="font-bold text-xl tracking-tight" th:text="${appName}">Task Tracker</span>
+                </div>
+                <div>
+                    <span class="text-indigo-200 text-sm">v1.0 - AWS Code-To-Cloud Edition</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto mt-10 px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header Section -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-8 border border-slate-100 flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-bold text-slate-900">Your Tasks</h1>
+                <p class="text-slate-500 text-sm mt-1">Manage your day-to-day operations seamlessly.</p>
+            </div>
+            <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-medium transition-colors shadow-sm flex items-center gap-2">
+                <i class="fa-solid fa-plus"></i> Add New Task
+            </button>
+        </div>
+
+        <!-- Task List Placeholder -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+            <ul class="divide-y divide-slate-100">
+                
+                <!-- Task Item 1 -->
+                <li class="p-5 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                    <div class="flex items-center gap-4">
+                        <input type="checkbox" class="w-5 h-5 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500">
+                        <div>
+                            <h3 class="text-lg font-medium text-slate-900">Setup AWS Infrastructure</h3>
+                            <p class="text-sm text-slate-500">Create Transit Gateway and Load Balancers</p>
+                        </div>
+                    </div>
+                    <span class="inline-flex items-center rounded-full bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">In Progress</span>
+                </li>
+
+                <!-- Task Item 2 -->
+                <li class="p-5 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                    <div class="flex items-center gap-4">
+                        <input type="checkbox" checked class="w-5 h-5 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500">
+                        <div>
+                            <h3 class="text-lg font-medium text-slate-900 line-through">Create Java Application</h3>
+                            <p class="text-sm text-slate-500 line-through">Bootstrap Spring Boot 2.7 with Maven</p>
+                        </div>
+                    </div>
+                    <span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Completed</span>
+                </li>
+
+                <!-- Task Item 3 -->
+                <li class="p-5 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                    <div class="flex items-center gap-4">
+                        <input type="checkbox" class="w-5 h-5 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500">
+                        <div>
+                            <h3 class="text-lg font-medium text-slate-900">Containerize Application</h3>
+                            <p class="text-sm text-slate-500">Write multi-stage Dockerfile</p>
+                        </div>
+                    </div>
+                    <span class="inline-flex items-center rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">Pending</span>
+                </li>
+
+            </ul>
+        </div>
+    </main>
+
+</body>
+</html>
