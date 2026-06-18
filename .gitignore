@@ -4,3 +4,5 @@ infrastructure/.terraform/
 task-tracker/target/
 .idea/
 .vscode/
+slave_key*
+run_ssm.py

@@ -54,6 +54,11 @@ resource "aws_instance" "jenkins_slave" {
   vpc_security_group_ids = [var.jenkins_slave_sg_id]
   iam_instance_profile   = var.ec2_profile_name
 
+  root_block_device {
+    volume_size = 30
+    volume_type = "gp3"
+  }
+
   user_data = <<-EOF
               #!/bin/bash
               apt-get update -y

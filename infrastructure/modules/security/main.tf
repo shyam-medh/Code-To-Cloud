@@ -8,7 +8,7 @@ resource "aws_security_group" "bastion" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Replace with specific VPN/IP in prod
+    cidr_blocks = ["125.62.125.75/32"] # Restricted to your public IP
   }
 
   egress {
@@ -50,7 +50,7 @@ resource "aws_security_group" "nginx" {
     from_port       = 80
     to_port         = 80
     protocol        = "tcp"
-    security_groups = [aws_security_group.public_nlb.id]
+    cidr_blocks     = ["0.0.0.0/0"]
   }
 
   ingress {
@@ -159,7 +159,7 @@ resource "aws_security_group" "jenkins_master" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["125.62.125.75/32"] # Restricted to your public IP
   }
 
   egress {

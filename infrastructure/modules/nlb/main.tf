@@ -48,10 +48,11 @@ resource "aws_lb" "internal" {
 }
 
 resource "aws_lb_target_group" "app" {
-  name     = "${var.environment}-app-tg"
-  port     = 8081
-  protocol = "TCP"
-  vpc_id   = var.prod_vpc_id
+  name               = "${var.environment}-app-tg"
+  port               = 8081
+  protocol           = "TCP"
+  vpc_id             = var.prod_vpc_id
+  preserve_client_ip = "false"
 
   health_check {
     protocol = "TCP"
