@@ -1,0 +1,11 @@
+variable "environment" { type = string }
+variable "prod_vpc_id" { type = string }
+variable "mgmt_vpc_id" { type = string }
+variable "mgmt_subnets" { type = list(string) }
+variable "private_app_subnets" { type = list(string) }
+variable "nginx_sg_id" { type = string }
+variable "app_sg_id" { type = string }
+variable "bastion_sg_id" { type = string }
+variable "nginx_tg_arn" { type = string }
+variable "app_tg_arn" { type = string }
+variable "internal_nlb_dns" { type = string }
