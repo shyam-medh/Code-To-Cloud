@@ -54,3 +54,12 @@ module "asg" {
   app_tg_arn            = module.nlb.app_tg_arn
   internal_nlb_dns      = module.nlb.internal_nlb_dns
 }
+
+module "rds" {
+  source = "./modules/rds"
+
+  environment        = var.environment
+  prod_vpc_id        = module.vpc.prod_vpc_id
+  private_db_subnets = module.vpc.prod_private_db_subnets
+  db_sg_id           = module.security.db_sg_id
+}
