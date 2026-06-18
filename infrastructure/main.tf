@@ -46,7 +46,6 @@ module "asg" {
   mgmt_vpc_id           = module.vpc.mgmt_vpc_id
   mgmt_subnets          = module.vpc.mgmt_public_subnets
   private_app_subnets   = module.vpc.prod_private_app_subnets
-  public_subnets        = module.vpc.prod_public_subnets
   nginx_sg_id           = module.security.nginx_sg_id
   app_sg_id             = module.security.app_sg_id
   bastion_sg_id         = module.security.bastion_sg_id

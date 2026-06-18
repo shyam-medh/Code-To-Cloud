@@ -1,0 +1,6 @@
+infrastructure/.terraform/
+*.tfstate
+*.tfstate.backup
+task-tracker/target/
+.idea/
+.vscode/

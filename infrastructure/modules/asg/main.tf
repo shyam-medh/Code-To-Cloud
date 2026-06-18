@@ -1,9 +1,13 @@
-data "aws_ami" "amazon_linux_2023" {
+data "aws_ami" "ubuntu" {
   most_recent = true
-  owners      = ["amazon"]
+  owners      = ["099720109477"]
   filter {
     name   = "name"
-    values = ["al2023-ami-2023.*-x86_64"]
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
+  }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
   }
 }
 
@@ -19,6 +23,20 @@ resource "aws_iam_role" "ec2_role" {
       }
     }]
   })
+
+  inline_policy {
+    name = "asg_refresh_policy"
+    policy = jsonencode({
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Action   = ["autoscaling:StartInstanceRefresh", "autoscaling:DescribeAutoScalingGroups"]
+          Effect   = "Allow"
+          Resource = "*"
+        },
+      ]
+    })
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "ssm_policy" {
@@ -34,7 +52,7 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 # Bastion Host Launch Template
 resource "aws_launch_template" "bastion" {
   name_prefix   = "${var.environment}-bastion-"
-  image_id      = data.aws_ami.amazon_linux_2023.id
+  image_id      = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
 
   iam_instance_profile {
@@ -67,7 +85,7 @@ resource "aws_autoscaling_group" "bastion" {
 # Nginx Launch Template
 resource "aws_launch_template" "nginx" {
   name_prefix   = "${var.environment}-nginx-"
-  image_id      = data.aws_ami.amazon_linux_2023.id
+  image_id      = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
 
   iam_instance_profile {
@@ -105,7 +123,7 @@ resource "aws_autoscaling_group" "nginx" {
 # Java App Launch Template
 resource "aws_launch_template" "app" {
   name_prefix   = "${var.environment}-app-"
-  image_id      = data.aws_ami.amazon_linux_2023.id
+  image_id      = data.aws_ami.ubuntu.id
   instance_type = "t3.small"
 
   iam_instance_profile {
