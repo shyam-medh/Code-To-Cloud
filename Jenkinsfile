@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Change this to your actual Docker Hub username!
-        DOCKER_IMAGE = 'yourdockerhubusername/java-app'
+        DOCKER_IMAGE = 'shyammedh/java-app'
         
         // This links to the credentials you will create in Jenkins
         DOCKER_CREDS = 'docker-hub-credentials' 
@@ -34,12 +34,10 @@ pipeline {
                 echo 'Scanning Java code for bugs, vulnerabilities, and code smells...'
                 dir('task-tracker') {
                     // We will activate this exact command once you get the Sonar token!
-                    echo 'SonarQube analysis will run here once configured in the UI!'
-                    /* 
+                    echo 'Running SonarQube analysis...'
                     withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')]) {
                         sh "mvn clean verify sonar:sonar -Dsonar.projectKey=task-tracker -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=${SONAR_TOKEN}"
                     }
-                    */
                 }
             }
         }
