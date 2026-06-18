@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'slave' }
 
     environment {
         // Change this to your actual Docker Hub username!
