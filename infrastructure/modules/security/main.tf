@@ -139,3 +139,54 @@ resource "aws_security_group" "db" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+# Jenkins SGs
+resource "aws_security_group" "jenkins_master" {
+  name        = "${var.environment}-jenkins-master-sg"
+  description = "Security group for Jenkins Master"
+  vpc_id      = var.mgmt_vpc_id
+
+  ingress {
+    description = "Jenkins UI"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "jenkins_slave" {
+  name        = "${var.environment}-jenkins-slave-sg"
+  description = "Security group for Jenkins Slave"
+  vpc_id      = var.mgmt_vpc_id
+
+  ingress {
+    description     = "SSH from Master"
+    from_port       = 22
+    to_port         = 22
+    protocol        = "tcp"
+    security_groups = [aws_security_group.jenkins_master.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}

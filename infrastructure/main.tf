@@ -63,3 +63,13 @@ module "rds" {
   private_db_subnets = module.vpc.prod_private_db_subnets
   db_sg_id           = module.security.db_sg_id
 }
+
+module "jenkins" {
+  source = "./modules/jenkins"
+
+  environment           = var.environment
+  mgmt_subnets          = module.vpc.mgmt_public_subnets
+  jenkins_master_sg_id  = module.security.jenkins_master_sg_id
+  jenkins_slave_sg_id   = module.security.jenkins_slave_sg_id
+  ec2_profile_name      = module.asg.ec2_profile_name
+}
